@@ -19,7 +19,40 @@ struct node
 int n, m;//当前圈n个人，每m个人出一次圈
 int x, y;//n和m的上限
 node* head, * now_que;//链首和当前链指向的位置
+int mm;//mode，区分是只求本次n和y的结果；还是通过输入n和y的上界来寻找规律
 
+void inpuT()
+{
+
+	printf("Select mode:\n");
+	printf("mode 1: One result.\tmode 2: Many result to find the rule.\n");
+	printf("Please input the number of mode:");
+	cin >> mm;
+
+	if (mm == 1)
+	{
+		printf("input the length of circle:");
+		cin >> x;
+		printf("input the number of y:");
+		cin >> y;
+	}
+	else if (mm == 2)
+	{
+		printf("input the upper bound of x and y:");
+		cin >> x >> y;
+	}
+	else
+	{
+		printf("input error");
+		return;
+	}
+
+	if (x <= 0 || y <= 0)
+	{
+		printf("input error");
+		return;
+	}
+}
 void init_que()//链表初始化
 {
 	node* list;
@@ -98,50 +131,21 @@ void print2(int q,int w)//预留精简版的信息，用于后续处理数据
 }
 int main()
 {
-	int mm;//mode，区分是只求本次n和y的结果；还是通过输入n和y的上界来寻找规律
-	printf("Select mode:\n");
-	printf("mode 1: One result.\tmode 2: Many result to find the rule.\n");
-	printf("Please input the number of mode:");
-	cin >> mm;
-
-	if( mm==1 )
+	inpuT();
+	
+	if (mm == 2)
 	{
-		printf("input the length of circle:");
-		cin >> x;
-		printf("input the number of y:");
-		cin >> y;
+		cout << "1";
+		for(int i=1;i<=y;i++)
+			printf("length of circle:%d,every %d pass a soldier,from No.1 begin.\n", 1, i);//只有一个元素的圈，就直接输出所有结果
+		printf("\n");
 	}
-	else if(mm==2)
-	{
-		printf("input the upper bound of x and y:");
-		cin >> x >> y;
-	}
-	else
-	{
-		printf("input error");
-		return 0;
-	}
-
-	if(x<0||y<0)
-	{
-		printf("input error");
-	} 
-
-	if(x==1)
-	{
-		for (int i = 1; i <= y; i++)
-		{
-			print1(x, i);
-			//print2(x, i);
-		}
-	}
-
+	
 	for (int q = 2; q <= x; q++)
 	{
-
 		for (int w = 1; w <= y; w++)
 		{
-			if(mm==1)
+			if (mm == 1)
 			{
 				q = x;
 				w = y;
@@ -158,7 +162,7 @@ int main()
 			print1(q, w);
 			//print2(q, w);
 			free(head);
-			if (mm = 1)
+			if (mm == 1)
 			{
 				q++;
 				w++;
