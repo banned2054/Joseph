@@ -104,7 +104,7 @@ int main()
 	printf("Please input the number of mode:");
 	cin >> mm;
 
-	if(mm==1)
+	if( mm==1 )
 	{
 		printf("input the length of circle:");
 		cin >> x;
